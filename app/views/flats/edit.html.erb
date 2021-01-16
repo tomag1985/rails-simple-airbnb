@@ -1,9 +1,1 @@
-<div class="container">
-  <%= simple_form_for [ @flat ] do |f| %>
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :number_of_guests %>
-    <%= f.input :price_per_night %>
-    <%= f.submit "Update values", class: "btn btn-primary" %>
-  <% end %>
-</div>
+<%= render "form", flat: @flat %>

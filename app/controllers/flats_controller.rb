@@ -1,20 +1,31 @@
 class FlatsController < ApplicationController
-  before_action :find_flat, only: [:show, :update, :edit]
+  before_action :find_flat, only: [:show, :update, :edit, :destroy]
   
-  def new
-    
+  def index
+    if params[:query].present?
+      @query = params[:query]
+      @flats = Flat.where("name LIKE ?","%#{params[:query]}%")
+      # Preventing SQL Injection and Database error for
+      # unknown characters
+    else
+      @flats = Flat.all
+    end
   end
 
   def create
+    @flat = Flat.new(flat_params).save
+    redirect_to flats_path
+  end
+
+  def new
+    @flat = Flat.new
   end
 
   def edit; end
 
   def destroy
-  end
-
-  def index
-    @flats = Flat.all
+    @flat.destroy
+    redirect_to flats_path
   end
 
   def show; end
